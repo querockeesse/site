@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Que Rock É Esse? — O Lado B do Rock Brasiliense</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f0ede6;
+    --gray: #888;
+    --accent: #e8e0d0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Space Mono', monospace;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.5;
+  }
+
+  /* ========== HERO ========== */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 3px solid var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 3px solid var(--white);
+  }
+
+  .hero-right {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .topline {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+    border-bottom: 1px solid #333;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .main-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(4.5rem, 10vw, 9rem);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .subtitle {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 3rem;
+    animation: fadeUp 0.8s ease 0.15s both;
+  }
+
+  .hero-meta {
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+
+  .hero-meta .location {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .hero-meta .dates {
+    font-family: 'Anton', sans-serif;
+    font-size: 3.5rem;
+    line-height: 1;
+    color: var(--white);
+  }
+
+  .hero-meta .address {
+    font-size: 0.65rem;
+    color: var(--gray);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 0.8rem;
+    line-height: 1.8;
+  }
+
+  .hero-photo-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-photo-area::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, transparent 50%, rgba(0,0,0,0.5) 100%);
+  }
+
+  /* Fake photo placeholder with crowd texture */
+  .crowd-img {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .crowd-img svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    opacity: 0.4;
+  }
+
+  .photo-caption {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 0.5rem;
+    color: #555;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    z-index: 2;
+  }
+
+  .instagram-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--gray);
+    text-decoration: none;
+    border-top: 1px solid #333;
+    padding-top: 1rem;
+    display: block;
+    margin-top: auto;
+  }
+
+  .instagram-tag:hover { color: var(--white); }
+
+  /* ========== SECTION HEADER ========== */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    padding: 2rem 2.5rem 1rem;
+    border-bottom: 1px solid #222;
+  }
+
+  .section-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--gray);
+    letter-spacing: 0.15em;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.1em;
+    color: var(--white);
+  }
+
+  /* ========== ABOUT SECTION ========== */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 3px solid var(--white);
+  }
+
+  .about-text {
+    padding: 3rem 2.5rem;
+    border-right: 3px solid var(--white);
+  }
+
+  .about-text p {
+    font-size: 0.78rem;
+    line-height: 2;
+    color: #ccc;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-text p strong {
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  .about-quote {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .big-quote {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--white);
+    padding-left: 1.5rem;
+  }
+
+  .quote-source {
+    font-size: 0.65rem;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding-left: 1.5rem;
+  }
+
+  /* ========== MODULES ========== */
+  .modules {
+    border-bottom: 3px solid var(--white);
+  }
+
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .module-card {
+    padding: 2rem 1.5rem;
+    border-right: 1px solid #222;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .module-card:last-child { border-right: none; }
+
+  .module-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--white);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .module-card:hover::before { transform: scaleX(1); }
+  .module-card:hover { background: #111; }
+
+  .module-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    color: #2a2a2a;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .module-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .module-desc {
+    font-size: 0.62rem;
+    color: var(--gray);
+    line-height: 1.8;
+  }
+
+  /* ========== CRONOGRAMA ========== */
+  .cronograma {
+    border-bottom: 3px solid var(--white);
+  }
+
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .day-card {
+    border-right: 1px solid #222;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .day-card:last-child { border-right: none; }
+
+  .day-card:hover { background: #111; }
+
+  .day-card.active {
+    background: var(--white);
+    border-right-color: var(--black);
+  }
+
+  .day-card.active .day-name,
+  .day-card.active .day-date,
+  .day-card.active .day-tag { color: var(--black); }
+
+  .day-card.active .event-item { color: var(--black); border-color: #888; }
+  .day-card.active .event-icon { color: var(--black); }
+  .day-card.active .detail-btn {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .day-header {
+    padding: 1.5rem 1.5rem 1rem;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .day-card.active .day-header { border-bottom-color: #ccc; }
+
+  .day-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.1em;
+    color: var(--white);
+    display: block;
+  }
+
+  .day-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--gray);
+    letter-spacing: 0.12em;
+  }
+
+  .day-body {
+    padding: 1rem 1.5rem 1.5rem;
+  }
+
+  .day-tag {
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .event-list {
+    list-style: none;
+    margin-bottom: 1.5rem;
+  }
+
+  .event-item {
+    font-size: 0.68rem;
+    color: #ccc;
+    line-height: 1.6;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #1a1a1a;
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .event-icon { color: var(--gray); flex-shrink: 0; margin-top: 0.1rem; }
+
+  .detail-btn {
+    display: block;
+    width: 100%;
+    padding: 0.6rem;
+    background: transparent;
+    border: 1px solid #333;
+    color: var(--gray);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .detail-btn:hover {
+    background: var(--white);
+    color: var(--black);
+    border-color: var(--white);
+  }
+
+  /* ========== MODAL ========== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .modal-overlay.open {
+    display: flex;
+    animation: fadeIn 0.2s ease;
+  }
+
+  .modal {
+    background: var(--black);
+    border: 3px solid var(--white);
+    max-width: 600px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+  }
+
+  .modal-header {
+    padding: 2rem 2rem 1.5rem;
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .modal-day-name {
+    font-family: 'Anton', sans-serif;
+    font-size: 3rem;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .modal-day-date {
+    font-size: 0.65rem;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+
+  .modal-close {
+    background: none;
+    border: 1px solid #444;
+    color: var(--gray);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    padding: 0.4rem 0.7rem;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transition: all 0.2s;
+  }
+
+  .modal-close:hover { border-color: var(--white); color: var(--white); }
+
+  .modal-body { padding: 2rem; }
+
+  .modal-event {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .modal-event:last-child { border-bottom: none; }
+
+  .modal-event-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    width: 2rem;
+    text-align: center;
+  }
+
+  .modal-event-content {}
+
+  .modal-event-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+
+  .modal-event-desc {
+    font-size: 0.65rem;
+    color: var(--gray);
+    line-height: 1.7;
+  }
+
+  /* ========== BANDS TICKER ========== */
+  .ticker {
+    border-bottom: 1px solid #222;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0.8rem 0;
+  }
+
+  .ticker-inner {
+    display: inline-block;
+    animation: ticker 30s linear infinite;
+  }
+
+  .ticker-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    color: var(--gray);
+    margin-right: 3rem;
+  }
+
+  .ticker-item::before {
+    content: '★ ';
+    color: #333;
+  }
+
+  /* ========== FOOTER ========== */
+  footer {
+    padding: 3rem 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+    border-top: 3px solid var(--white);
+  }
+
+  .footer-col {}
+
+  .footer-label {
+    font-size: 0.55rem;
+    color: var(--gray);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    line-height: 1.5;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid #222;
+    padding: 1rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-bottom span {
+    font-size: 0.55rem;
+    color: #444;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ========== ANIMATIONS ========== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { border-right: none; border-bottom: 3px solid var(--white); }
+    .about { grid-template-columns: 1fr; }
+    .about-text { border-right: none; border-bottom: 3px solid var(--white); }
+    .modules-grid { grid-template-columns: 1fr 1fr; }
+    .days-grid { grid-template-columns: 1fr 1fr; }
+    footer { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .modules-grid { grid-template-columns: 1fr; }
+    .days-grid { grid-template-columns: 1fr; }
+    .main-title { font-size: 4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- BANDS TICKER TOP -->
+<div class="ticker">
+  <span class="ticker-inner">
+    <span class="ticker-item">Detrito Federal</span>
+    <span class="ticker-item">Finis Africae</span>
+    <span class="ticker-item">Escola de Escândalos</span>
+    <span class="ticker-item">Elite Sofisticada</span>
+    <span class="ticker-item">Aborto Elétrico</span>
+    <span class="ticker-item">Plebe Rude</span>
+    <span class="ticker-item">Capital Inicial</span>
+    <span class="ticker-item">Legião Urbana</span>
+    <span class="ticker-item">Raimundos</span>
+    <span class="ticker-item">Detrito Federal</span>
+    <span class="ticker-item">Finis Africae</span>
+    <span class="ticker-item">Escola de Escândalos</span>
+    <span class="ticker-item">Elite Sofisticada</span>
+    <span class="ticker-item">Aborto Elétrico</span>
+    <span class="ticker-item">Plebe Rude</span>
+    <span class="ticker-item">Capital Inicial</span>
+    <span class="ticker-item">Legião Urbana</span>
+    <span class="ticker-item">Raimundos</span>
+  </span>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div>
+      <div class="topline">A turma de Museologia e Comunicação 4 apresenta</div>
+      <h1 class="main-title">Que Rock<br>é Esse?</h1>
+      <p class="subtitle">— O Lado B do Rock Brasiliense</p>
+    </div>
+    <div class="hero-meta">
+      <div class="location">Galpão 17<br><small style="font-size:0.9rem;color:#aaa">SMAS Área Especial G</small></div>
+      <div class="dates">23—27<br>JUN<br>2026</div>
+      <div class="address">Conjunto A · Lotes 16 e 17<br>Entrada Gratuita</div>
+    </div>
+    <a href="https://instagram.com/que_rockeesse" class="instagram-tag" target="_blank">@QUE_ROCKEESSE</a>
+  </div>
+  <div class="hero-right">
+    <div class="crowd-img">
+      <!-- SVG crowd silhouette -->
+      <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="800" height="600" fill="#0a0a0a"/>
+        <!-- Crowd silhouette drawn with paths -->
+        <g fill="#ffffff" opacity="0.15">
+          <!-- Stage light beams -->
+          <polygon points="400,50 200,600 220,600" opacity="0.06"/>
+          <polygon points="400,50 350,600 370,600" opacity="0.04"/>
+          <polygon points="400,50 580,600 560,600" opacity="0.06"/>
+          <!-- Crowd heads -->
+          <ellipse cx="50" cy="500" rx="25" ry="60"/>
+          <ellipse cx="100" cy="480" rx="22" ry="70"/>
+          <ellipse cx="150" cy="510" rx="28" ry="55"/>
+          <ellipse cx="200" cy="490" rx="20" ry="65"/>
+          <ellipse cx="250" cy="520" rx="26" ry="50"/>
+          <ellipse cx="300" cy="485" rx="23" ry="68"/>
+          <ellipse cx="350" cy="515" rx="29" ry="58"/>
+          <ellipse cx="400" cy="475" rx="21" ry="72"/>
+          <ellipse cx="450" cy="505" rx="27" ry="60"/>
+          <ellipse cx="500" cy="488" rx="22" ry="65"/>
+          <ellipse cx="550" cy="518" rx="25" ry="55"/>
+          <ellipse cx="600" cy="492" rx="28" ry="62"/>
+          <ellipse cx="650" cy="508" rx="20" ry="68"/>
+          <ellipse cx="700" cy="478" rx="26" ry="70"/>
+          <ellipse cx="750" cy="512" rx="23" ry="58"/>
+          <ellipse cx="800" cy="495" rx="22" ry="65"/>
+          <!-- Second row -->
+          <ellipse cx="75" cy="420" rx="20" ry="55"/>
+          <ellipse cx="130" cy="405" rx="24" ry="60"/>
+          <ellipse cx="185" cy="425" rx="21" ry="52"/>
+          <ellipse cx="240" cy="410" rx="26" ry="58"/>
+          <ellipse cx="295" cy="430" rx="19" ry="54"/>
+          <ellipse cx="360" cy="415" rx="23" ry="62"/>
+          <ellipse cx="415" cy="435" rx="27" ry="50"/>
+          <ellipse cx="470" cy="408" rx="20" ry="64"/>
+          <ellipse cx="525" cy="422" rx="25" ry="56"/>
+          <ellipse cx="575" cy="412" rx="22" ry="60"/>
+          <ellipse cx="630" cy="432" rx="28" ry="52"/>
+          <ellipse cx="685" cy="418" rx="21" ry="58"/>
+          <ellipse cx="745" cy="428" rx="24" ry="55"/>
+          <!-- Arms raised -->
+          <rect x="95" y="350" width="6" height="70" rx="3" transform="rotate(-15,98,350)"/>
+          <rect x="200" y="370" width="6" height="60" rx="3" transform="rotate(10,203,370)"/>
+          <rect x="380" y="340" width="6" height="80" rx="3" transform="rotate(-20,383,340)"/>
+          <rect x="520" y="355" width="6" height="75" rx="3" transform="rotate(18,523,355)"/>
+          <rect x="660" y="365" width="6" height="65" rx="3" transform="rotate(-12,663,365)"/>
+        </g>
+        <!-- Sign in background -->
+        <g transform="translate(240, 80)" opacity="0.35">
+          <rect x="0" y="0" width="320" height="120" fill="white"/>
+          <rect x="8" y="8" width="304" height="104" fill="black"/>
+          <text x="20" y="45" font-family="Anton, sans-serif" font-size="26" fill="white">ORDEM E PROGRESSO,</text>
+          <text x="20" y="75" font-family="Anton, sans-serif" font-size="26" fill="white">ISSO TEM NO</text>
+          <text x="20" y="105" font-family="Anton, sans-serif" font-size="32" fill="white">PERDIDO?</text>
+        </g>
+      </svg>
+      <div class="photo-caption">Foto: Ricardo Junqueira</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="about-text">
+    <div class="section-header" style="padding-left:0;padding-top:0">
+      <span class="section-num">01 //</span>
+      <span class="section-title">Sobre a Exposição</span>
+    </div>
+    <br>
+    <p>A turma de <strong>Museologia e Comunicação 4</strong> da Universidade de Brasília apresenta uma exposição que vai além dos nomes mais conhecidos da cena rock brasiliense dos anos 1980.</p>
+    <p>Enquanto Legião Urbana, Capital Inicial e Plebe Rude alcançaram projeção nacional, bandas como <strong>Detrito Federal, Finis Africae e Escola de Escândalos</strong> — surgidas nas cidades satélites e periferias do DF — mantiveram o espírito original do punk-rock: contestação, identidade e resistência política.</p>
+    <p>Esta exposição resgata o <strong>"Lado B"</strong> dessa história — as vozes que o mainstream silenciou, mas que nunca pararam de gritar.</p>
+    <p style="color:#555;font-size:0.65rem">Em 2016, o rock de Brasília foi declarado <strong>patrimônio cultural imaterial do Distrito Federal</strong> pela Lei nº 5.615.</p>
+  </div>
+  <div class="about-quote">
+    <div class="big-quote">"Injustiça se comete quando é omitida a participação de outras bandas contemporâneas..."</div>
+    <div class="quote-source">— Irlan Rocha Lima, encarte do CD Rumores (2013)</div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<section class="modules">
+  <div class="section-header">
+    <span class="section-num">02 //</span>
+    <span class="section-title">Módulos da Exposição</span>
+  </div>
+  <div class="modules-grid">
+    <div class="module-card" onclick="openModal('mod1')">
+      <div class="module-num">01</div>
+      <div class="module-name">A Capital do Rock da "Turma da Colina"</div>
+      <div class="module-desc">Uma narrativa de mitos. Flyers, fotografias, capas de LPs e ingressos históricos.</div>
+    </div>
+    <div class="module-card" onclick="openModal('mod2')">
+      <div class="module-num">02</div>
+      <div class="module-name">Os "Anti-Heróis"</div>
+      <div class="module-desc">O lado B da Capital do Rock. Detrito Federal, Finis Africae e Escola de Escândalos.</div>
+    </div>
+    <div class="module-card" onclick="openModal('mod3')">
+      <div class="module-num">03</div>
+      <div class="module-name">Os Palcos da Margem</div>
+      <div class="module-desc">Onde se fez o lado B. Mapa do DF com bares, teatros e espaços históricos da cena.</div>
+    </div>
+    <div class="module-card" onclick="openModal('mod4')">
+      <div class="module-num">04</div>
+      <div class="module-name">Mas afinal, que rock é esse?</div>
+      <div class="module-desc">Textos e trechos musicais. Vozes da contracultura: identidades e exclusão social.</div>
+    </div>
+    <div class="module-card" onclick="openModal('mod5')">
+      <div class="module-num">05</div>
+      <div class="module-name">Aumenta que isso aí é Rock and Roll!</div>
+      <div class="module-desc">Espaço fotográfico interativo. Roupas, acessórios punk e selfies com #QueRockÉEsse.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CRONOGRAMA -->
+<section class="cronograma">
+  <div class="section-header">
+    <span class="section-num">03 //</span>
+    <span class="section-title">Cronograma — Clique para ver mais</span>
+  </div>
+  <div class="days-grid">
+
+    <div class="day-card active" onclick="toggleDay(this, 'terça')">
+      <div class="day-header">
+        <span class="day-name">Terça</span>
+        <span class="day-date">23 / 06 / 2026</span>
+      </div>
+      <div class="day-body">
+        <span class="day-tag">★ Abertura</span>
+        <ul class="event-list">
+          <li class="event-item"><span class="event-icon">🎪</span>Abertura oficial da exposição</li>
+          <li class="event-item"><span class="event-icon">🎸</span>Show de abertura com bandas locais</li>
+        </ul>
+        <button class="detail-btn">+ Detalhes</button>
+      </div>
+    </div>
+
+    <div class="day-card" onclick="toggleDay(this, 'quarta')">
+      <div class="day-header">
+        <span class="day-name">Quarta</span>
+        <span class="day-date">24 / 06 / 2026</span>
+      </div>
+      <div class="day-body">
+        <span class="day-tag">Exposição</span>
+        <ul class="event-list">
+          <li class="event-item"><span class="event-icon">🖼️</span>Visitação à exposição</li>
+          <li class="event-item"><span class="event-icon">🎸</span>Shows das bandas</li>
+        </ul>
+        <button class="detail-btn">+ Detalhes</button>
+      </div>
+    </div>
+
+    <div class="day-card" onclick="toggleDay(this, 'quinta')">
+      <div class="day-header">
+        <span class="day-name">Quinta</span>
+        <span class="day-date">25 / 06 / 2026</span>
+      </div>
+      <div class="day-body">
+        <span class="day-tag">Oficinas</span>
+        <ul class="event-list">
+          <li class="event-item"><span class="event-icon">🧵</span>Oficina de customização de roupas — estilo rock anos 80</li>
+          <li class="event-item"><span class="event-icon">🎸</span>Shows das bandas</li>
+        </ul>
+        <button class="detail-btn">+ Detalhes</button>
+      </div>
+    </div>
+
+    <div class="day-card" onclick="toggleDay(this, 'sexta')">
+      <div class="day-header">
+        <span class="day-name">Sexta</span>
+        <span class="day-date">26 / 06 / 2026</span>
+      </div>
+      <div class="day-body">
+        <span class="day-tag">Programação Especial</span>
+        <ul class="event-list">
+          <li class="event-item"><span class="event-icon">🧵</span>Oficina de customização de roupas</li>
+          <li class="event-item"><span class="event-icon">🗣️</span>Roda de conversa</li>
+          <li class="event-item"><span class="event-icon">🎵</span>Oficina musical</li>
+        </ul>
+        <button class="detail-btn">+ Detalhes</button>
+      </div>
+    </div>
+
+    <div class="day-card" onclick="toggleDay(this, 'sabado')">
+      <div class="day-header">
+        <span class="day-name">Sábado</span>
+        <span class="day-date">27 / 06 / 2026</span>
+      </div>
+      <div class="day-body">
+        <span class="day-tag">★ Encerramento</span>
+        <ul class="event-list">
+          <li class="event-item"><span class="event-icon">🔱</span>Flash Day de Tatuagem</li>
+          <li class="event-item"><span class="event-icon">🎬</span>Exibição de filme</li>
+          <li class="event-item"><span class="event-icon">🎸</span>Show de encerramento</li>
+        </ul>
+        <button class="detail-btn">+ Detalhes</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-col">
+    <div class="footer-label">Local</div>
+    <div class="footer-value">Galpão 17<br>SMAS Área Especial G<br>Conjunto A, Lotes 16 e 17</div>
+  </div>
+  <div class="footer-col">
+    <div class="footer-label">Período</div>
+    <div class="footer-value">23 a 27 de Junho<br>2026<br>Entrada Gratuita</div>
+  </div>
+  <div class="footer-col">
+    <div class="footer-label">Realização</div>
+    <div class="footer-value">Turma de Museologia<br>e Comunicação 4<br>UnB — 2025/2026</div>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2026 Que Rock É Esse? — Exposição Curricular UnB</span>
+  <span>@que_rockeesse</span>
+</div>
+
+<!-- MODALS POR DIA -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOverlay(event)">
+  <div class="modal" id="modal-content">
+    <!-- preenchido por JS -->
+  </div>
+</div>
+
+<!-- MODALS DE MÓDULOS -->
+<div class="modal-overlay" id="mod-overlay" onclick="closeModOverlay(event)">
+  <div class="modal" id="mod-content">
+  </div>
+</div>
+
+<script>
+  const dayData = {
+    'terça': {
+      name: 'Terça-feira', date: '23 de Junho de 2026', tag: 'Abertura Oficial',
+      events: [
+        { icon: '🎪', title: 'Abertura da Exposição', desc: 'Cerimônia de abertura oficial com os organizadores da turma de Museologia e Comunicação 4 da UnB.' },
+        { icon: '🎸', title: 'Show de Abertura', desc: 'Apresentações ao vivo com bandas locais do circuito alternativo do DF. Programação completa em breve.' },
+      ]
+    },
+    'quarta': {
+      name: 'Quarta-feira', date: '24 de Junho de 2026', tag: 'Exposição + Shows',
+      events: [
+        { icon: '🖼️', title: 'Visitação Livre', desc: 'Explore os 5 módulos da exposição: da "Turma da Colina" aos Anti-Heróis do punk brasiliense. Mediadores disponíveis.' },
+        { icon: '🎸', title: 'Shows das Bandas', desc: 'Apresentações de bandas do cenário alternativo de Brasília. Programação em breve.' },
+      ]
+    },
+    'quinta': {
+      name: 'Quinta-feira', date: '25 de Junho de 2026', tag: 'Oficina + Shows',
+      events: [
+        { icon: '🧵', title: 'Oficina de Customização', desc: 'Customização de roupas no estilo rock dos anos 80: jaquetas, camisetas, patches, tachinhas e muito mais. Vagas limitadas.' },
+        { icon: '🎸', title: 'Shows das Bandas', desc: 'Apresentações ao vivo de bandas da cena alternativa do DF.' },
+      ]
+    },
+    'sexta': {
+      name: 'Sexta-feira', date: '26 de Junho de 2026', tag: 'Programação Completa',
+      events: [
+        { icon: '🧵', title: 'Oficina de Customização', desc: 'Segunda edição da oficina de customização de roupas no estilo rock dos anos 80.' },
+        { icon: '🗣️', title: 'Roda de Conversa', desc: 'Discussão mediada sobre o rock brasiliense, memória, identidade e as bandas que ficaram fora do mainstream. Com pesquisadores e convidados.' },
+        { icon: '🎵', title: 'Oficina Musical', desc: 'Atividade prática de musicalização e história do punk-rock no DF. Aberta ao público.' },
+      ]
+    },
+    'sabado': {
+      name: 'Sábado', date: '27 de Junho de 2026', tag: 'Encerramento',
+      events: [
+        { icon: '🔱', title: 'Flash Day de Tatuagem', desc: 'Um dia especial de tatuagens temáticas com o tatuador convidado. Agendamentos e valores a confirmar.' },
+        { icon: '🎬', title: 'Exibição de Filme', desc: 'Projeção de filme temático sobre o rock brasiliense. Confira o programa expográfico para mais detalhes.' },
+        { icon: '🎸', title: 'Show de Encerramento', desc: 'Grande show de encerramento com as bandas da programação. Uma despedida à altura do "Lado B" do rock brasiliense.' },
+      ]
+    }
+  };
+
+  const modData = {
+    'mod1': {
+      name: 'Módulo 01', sub: 'A Capital do Rock da "Turma da Colina": Uma Narrativa de Mitos',
+      desc: 'Este módulo apresenta as bandas mais conhecidas do rock brasiliense — Legião Urbana, Capital Inicial, Plebe Rude — contextualizando seus privilégios socioeconômicos e o acesso diferenciado que tiveram a gravadoras, instrumentos e redes de contato. Expõe flyers fac-símile, fotografias históricas, capas de LPs e o ingresso do último show da Legião Urbana.',
+      items: ['Flyers originais e fac-símile de shows dos anos 80', 'Fotografias históricas da cena', 'Capas de LPs: Legião Urbana, Capital Inicial, Plebe Rude', 'Ingresso original do último show do Legião Urbana']
+    },
+    'mod2': {
+      name: 'Módulo 02', sub: 'Os "Anti-Heróis": O Lado B da Capital do Rock',
+      desc: 'Apresenta as bandas que mantiveram o espírito original do punk-rock: Detrito Federal, Finis Africae e Escola de Escândalos — surgidas nas cidades satélites e periferias do DF, com crítica social e política mais afiada que suas contemporâneas mais famosas.',
+      items: ['Fotografias dos membros das bandas', 'Capas de LPs e CDs: Detrito Federal, Finis Africae, Escola de Escândalos', 'Vitrola exposta', 'Textos e letras das composições']
+    },
+    'mod3': {
+      name: 'Módulo 03', sub: 'Os Palcos da Margem: Onde se Fez o Lado B',
+      desc: 'Um grande mapa do Distrito Federal com marcações dos locais que foram palco da cena alternativa: bares, teatros e espaços históricos que acolheram as bandas do "lado B".',
+      items: ['Sorveteria Foods', 'Toinha\'s Bar', 'Teatro de Bolso Rolla Pedra', 'Teatro Galpãozinho (hoje Espaço Cultural Renato Russo)', 'SESC "Gueto de Rock"', 'Teatro de Arena (UnB)', 'Complexo Penitenciário da Papuda']
+    },
+    'mod4': {
+      name: 'Módulo 04', sub: '"Mas afinal, que rock é esse?" + Submódulo 4.1',
+      desc: 'Módulo de conclusão que retoma a pergunta central da exposição. Apresenta textos e trechos musicais que mostram o rock de Brasília como veículo político e de expressão de uma geração. O submódulo 4.1 aprofunda os marcadores sociais de diferença — classe, raça e gênero — presentes nas composições.',
+      items: ['Textos analíticos e críticos', 'Trechos de composições das bandas', 'Reflexões sobre identidade e exclusão social', 'Parede móvel com plotagem']
+    },
+    'mod5': {
+      name: 'Módulo 05', sub: '"Aumenta que isso aí é Rock and Roll!"',
+      desc: 'Espaço de interação fotográfica com o público. Ambientado com elementos do universo punk-rock para que os visitantes possam se fantasiar, tirar fotos e compartilhar nas redes sociais.',
+      items: ['Peças de vestuário e acessórios punk-rock', 'Cartazes e flyers decorativos', 'Exibição do título e hashtag #QueRockÉEsse', 'Espaço para selfies e fotos']
+    }
+  };
+
+  function toggleDay(card, key) {
+    // deactivate all
+    document.querySelectorAll('.day-card').forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
+    // also open modal
+    openDayModal(key);
+  }
+
+  function openDayModal(key) {
+    const d = dayData[key];
+    if (!d) return;
+    const eventsHtml = d.events.map(e => `
+      <div class="modal-event">
+        <div class="modal-event-icon">${e.icon}</div>
+        <div class="modal-event-content">
+          <div class="modal-event-title">${e.title}</div>
+          <div class="modal-event-desc">${e.desc}</div>
+        </div>
+      </div>
+    `).join('');
+    document.getElementById('modal-content').innerHTML = `
+      <div class="modal-header">
+        <div>
+          <div class="modal-day-name">${d.name}</div>
+          <div class="modal-day-date">${d.date} — ${d.tag}</div>
+        </div>
+        <button class="modal-close" onclick="closeModal()">✕ Fechar</button>
+      </div>
+      <div class="modal-body">${eventsHtml}</div>
+    `;
+    document.getElementById('modal-overlay').classList.add('open');
+  }
+
+  function openModal(key) {
+    const m = modData[key];
+    if (!m) return;
+    const itemsHtml = m.items.map(i => `
+      <div class="modal-event">
+        <div class="modal-event-icon">→</div>
+        <div class="modal-event-content">
+          <div class="modal-event-desc">${i}</div>
+        </div>
+      </div>
+    `).join('');
+    document.getElementById('mod-content').innerHTML = `
+      <div class="modal-header">
+        <div>
+          <div class="modal-day-name">${m.name}</div>
+          <div class="modal-day-date">${m.sub}</div>
+        </div>
+        <button class="modal-close" onclick="closeMod()">✕ Fechar</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-event" style="padding-bottom:1.5rem">
+          <div class="modal-event-content">
+            <div class="modal-event-desc" style="color:#ccc;line-height:1.9">${m.desc}</div>
+          </div>
+        </div>
+        ${itemsHtml}
+      </div>
+    `;
+    document.getElementById('mod-overlay').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('open');
+  }
+
+  function closeMod() {
+    document.getElementById('mod-overlay').classList.remove('open');
+  }
+
+  function closeModalOverlay(e) {
+    if (e.target === document.getElementById('modal-overlay')) closeModal();
+  }
+
+  function closeModOverlay(e) {
+    if (e.target === document.getElementById('mod-overlay')) closeMod();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeModal(); closeMod(); }
+  });
+</script>
+</body>
+</html>
